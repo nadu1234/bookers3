@@ -7,12 +7,14 @@ class BooksController < ApplicationController
     @book_new = Book.new
     @user_id = User.find(@book.user_id)
     @user = User.find(current_user.id)
-    # @user_id = User.find(@book.user_id) ここに記述とエラーがでた。保存できてなかっただけ？
+    # @user_id = User.find(@book.user_id) ここに記述するとエラーがでた。保存できてなかっただけ？
     @book_comment = BookComment.new
   end
 
   def index
     @books = Book.all
+    # @book_id = Book.find(params[:id])
+    # @book_favorite = Book.find(@book_id.id)
     @book = Book.new
   end
 
@@ -51,12 +53,12 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body)
   end
-  
+
   def ensure_correct_user
     book = Book.find(params[:id])
     unless book.user_id == current_user.id
       redirect_to books_path
     end
   end
-  
+
 end
