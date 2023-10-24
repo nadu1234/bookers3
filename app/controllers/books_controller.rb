@@ -7,6 +7,8 @@ class BooksController < ApplicationController
     @book_new = Book.new
     @user_id = User.find(@book.user_id)
     @user = User.find(current_user.id)
+    # @user_id = User.find(@book.user_id) ここに記述とエラーがでた。保存できてなかっただけ？
+    @book_comment = BookComment.new
   end
 
   def index
