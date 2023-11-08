@@ -2,21 +2,28 @@
 
 <table class="table table-hover table-inverse">
   <!--検索対象モデルがUserの時 -->
+  
+
   <% if @range == "User" %>
     <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= link_to(user) do %>
-          <%= image_tag user.get_profile_image, size:'50x50' %>
-          <% end %>
-          </td>
-          <td><%= user.name %></td>
-        </tr>
+      <% if @users.present? %>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to(user) do %>
+            <%= image_tag user.get_profile_image, size:'50x50' %>
+            <% end %>
+            </td>
+            <td><%= user.name %></td>
+          </tr>
+        <% end %>
+      <% else %>
+      <h4>・該当するUserがいません</h4>
       <% end %>
     </tbody>
   <% else %>
     <!--検索対象モデルがUserではない時(= 検索対象モデルがBookの時) -->
     <tbody>
+    <% if @books.present? %>
       <% @books.each do |book| %>
         <tr>
           <td><%= link_to(book.user) do %>
@@ -26,6 +33,9 @@
           <td><%= book.title %></td>
           <td><%= book.body %></td>
         </tr>
+      <% end %>
+      <% else %>
+        <h4>・該当するBookがありません</h4>
       <% end %>
     </tbody>
   <% end %>
