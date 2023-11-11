@@ -3,8 +3,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @books = @user.books
+    @books = @user.books.page(params[:page]).per(8)
     @book = Book.new
+    @user = User.find(params[:id])
     @following_users = @user.following_user
     @follower_users = @user.follower_user
   end

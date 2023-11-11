@@ -12,7 +12,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.all
+    @books = Book.all.page(params[:page]).per(8)
     # @book_id = Book.find(params[:id])
     # @book_favorite = Book.find(@book_id.id)
     @book = Book.new
