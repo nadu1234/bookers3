@@ -19,19 +19,19 @@ describe '[STEP2] ユーザログイン後のテスト' do
 
       it 'Homeを押すと、自分のユーザ詳細画面に遷移する' do
         home_link = find_all('a')[1].native.inner_text
-        home_link = home_link.gsub(/\n/, '').gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
+        home_link = home_link.delete("\n").gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
         click_link home_link
         is_expected.to eq '/users/' + user.id.to_s
       end
       it 'Usersを押すと、ユーザ一覧画面に遷移する' do
         users_link = find_all('a')[2].native.inner_text
-        users_link = users_link.gsub(/\n/, '').gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
+        users_link = users_link.delete("\n").gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
         click_link users_link
         is_expected.to eq '/users'
       end
       it 'Booksを押すと、投稿一覧画面に遷移する' do
         books_link = find_all('a')[3].native.inner_text
-        books_link = books_link.gsub(/\n/, '').gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
+        books_link = books_link.delete("\n").gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
         click_link books_link
         is_expected.to eq '/books'
       end
@@ -184,7 +184,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
       it 'application.html.erbにjavascript_pack_tagを含んでいる' do
         is_exist = 0
         open("app/views/layouts/application.html.erb").each do |line|
-          strip_line = line.chomp.gsub(" ", "")
+          strip_line = line.chomp.delete(" ")
           if strip_line.include?("<%=javascript_pack_tag'application','data-turbolinks-track':'reload'%>")
             is_exist = 1
             break
